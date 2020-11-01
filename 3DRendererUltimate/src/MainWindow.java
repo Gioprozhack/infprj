@@ -1,11 +1,10 @@
 import javax.swing.JFrame;
 import javax.swing.JSlider;
 import javax.swing.SwingConstants;
-
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 import javax.swing.JPanel;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -19,12 +18,24 @@ import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.event.ChangeEvent;
+import javax.swing.JScrollPane;
 
 
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = -3880026026104218593L;
 	public MainWindow() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (ClassNotFoundException e1) {
+			System.exit(0);
+		} catch (InstantiationException e1) {
+			System.exit(0);
+		} catch (IllegalAccessException e1) {
+			System.exit(0);
+		} catch (UnsupportedLookAndFeelException e1) {
+			System.exit(0);
+		}
 		setResizable(false);
 		setTitle("3D Renderer");
 		setSize(600, 420);
@@ -40,6 +51,10 @@ public class MainWindow extends JFrame {
 		pitchSlider.setBounds(559, 11, 20, 343);
 		getContentPane().add(pitchSlider);
 		ArrayList<Triangle> trg = new ArrayList<Triangle>();
+		
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setBounds(199, 11, 360, 343);
+		getContentPane().add(scrollPane);
 		JPanel renderPanel = new JPanel() {
 
 			private static final long serialVersionUID = 3121362272884517050L;
@@ -92,8 +107,7 @@ public class MainWindow extends JFrame {
 				}
 			}
 		};
-		renderPanel.setBounds(199, 11, 360, 343);
-		getContentPane().add(renderPanel);
+		scrollPane.setViewportView(renderPanel);
 		
 		JLabel cordA = new JLabel("A:");
 		cordA.setFont(new Font("Tahoma", Font.PLAIN, 16));
