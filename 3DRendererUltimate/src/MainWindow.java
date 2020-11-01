@@ -4,6 +4,7 @@ import javax.swing.SwingConstants;
 
 import javax.swing.JPanel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -115,68 +116,80 @@ public class MainWindow extends JFrame {
 		getContentPane().add(cordD);
 		
 		JTextField Ax = new JTextField();
+		Ax.setText("100");
 		Ax.setColumns(10);
 		Ax.setBounds(40, 11, 30, 20);
 		getContentPane().add(Ax);
 		
 		JTextField Ay = new JTextField();
+		Ay.setText("100");
 		Ay.setColumns(10);
 		Ay.setBounds(75, 11, 30, 20);
 		getContentPane().add(Ay);
 		
 		JTextField Az = new JTextField();
+		Az.setText("100");
 		Az.setColumns(10);
 		Az.setBounds(110, 11, 30, 20);
 		getContentPane().add(Az);
 		
 		JTextField Bx = new JTextField();
+		Bx.setText("100");
 		Bx.setColumns(10);
 		Bx.setBounds(40, 42, 30, 20);
 		getContentPane().add(Bx);
 		
 		JTextField By = new JTextField();
+		By.setText("-100");
 		By.setColumns(10);
 		By.setBounds(75, 42, 30, 20);
 		getContentPane().add(By);
 		
 		JTextField Bz = new JTextField();
+		Bz.setText("-100");
 		Bz.setColumns(10);
 		Bz.setBounds(110, 42, 30, 20);
 		getContentPane().add(Bz);
 		
 		JTextField Cx = new JTextField();
+		Cx.setText("-100");
 		Cx.setColumns(10);
 		Cx.setBounds(40, 73, 30, 20);
 		getContentPane().add(Cx);
 		
 		JTextField Cy = new JTextField();
+		Cy.setText("100");
 		Cy.setColumns(10);
 		Cy.setBounds(75, 73, 30, 20);
 		getContentPane().add(Cy);
 		
 		JTextField Cz = new JTextField();
+		Cz.setText("-100");
 		Cz.setColumns(10);
 		Cz.setBounds(110, 73, 30, 20);
 		getContentPane().add(Cz);
 		
 		JTextField Dx = new JTextField();
+		Dx.setText("-100");
 		Dx.setColumns(10);
 		Dx.setBounds(40, 104, 30, 20);
 		getContentPane().add(Dx);
 		
 		JTextField Dy = new JTextField();
+		Dy.setText("-100");
 		Dy.setColumns(10);
 		Dy.setBounds(75, 104, 30, 20);
 		getContentPane().add(Dy);
 		
 		JTextField Dz = new JTextField();
+		Dz.setText("100");
 		Dz.setColumns(10);
 		Dz.setBounds(110, 104, 30, 20);
-		getContentPane().add(Dz);
+		getContentPane().add(Dz);		
 		
 		JButton rendbutton = new JButton("Render");
 		rendbutton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {				
 				Vertex A = new Vertex(Double.parseDouble(Ax.getText()), Double.parseDouble(Ay.getText()), Double.parseDouble(Az.getText()));
 				Vertex B = new Vertex(Double.parseDouble(Bx.getText()), Double.parseDouble(By.getText()), Double.parseDouble(Bz.getText()));
 				Vertex C = new Vertex(Double.parseDouble(Cx.getText()), Double.parseDouble(Cy.getText()), Double.parseDouble(Cz.getText()));
@@ -190,6 +203,33 @@ public class MainWindow extends JFrame {
 		});
 		rendbutton.setBounds(51, 135, 89, 23);
 		getContentPane().add(rendbutton);
+		
+		JButton randomgen = new JButton("Random");
+		randomgen.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Vertex A1 = new Vertex((int) Math.round(Math.random()*100 + 25), (int) Math.round(Math.random()*100 + 25), (int) Math.round(Math.random()*100 + 25));
+				Vertex B1 = new Vertex((int) Math.round(Math.random()*100 + 25), (int) -Math.round(Math.random()*100 + 25), (int) -Math.round(Math.random()*100 + 25));
+				Vertex C1 = new Vertex((int) -Math.round(Math.random()*100 + 25), (int) Math.round(Math.random()*100 + 25), (int) -Math.round(Math.random()*100 + 25));
+				Vertex D1 = new Vertex((int) -Math.round(Math.random()*100 + 25), (int) -Math.round(Math.random()*100 + 25), (int) Math.round(Math.random()*100 + 25));
+				trg.add(new Triangle(A1, B1, C1, new Color((int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255))));
+				trg.add(new Triangle(A1, C1, D1, new Color((int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255))));
+				trg.add(new Triangle(A1, B1, D1, new Color((int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255))));
+				trg.add(new Triangle(B1, C1, D1, new Color((int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255), (int) Math.round(Math.random()*255))));
+				renderPanel.repaint();				
+			}
+		});
+		randomgen.setBounds(51, 169, 89, 23);
+		getContentPane().add(randomgen);
+		
+		JButton removebtn = new JButton("Remove");
+		removebtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				trg.clear();
+				renderPanel.repaint();
+			}
+		});
+		removebtn.setBounds(51, 203, 89, 23);
+		getContentPane().add(removebtn);
 		headingSlider.addChangeListener(new ChangeListener() {
 			public void stateChanged(ChangeEvent e) {
 				renderPanel.repaint();
@@ -241,4 +281,3 @@ class Matrix3 {
 		}
 	}
 }
-
